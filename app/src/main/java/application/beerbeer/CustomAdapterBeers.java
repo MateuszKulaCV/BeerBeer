@@ -1,8 +1,6 @@
 package application.beerbeer;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +44,15 @@ public class CustomAdapterBeers extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = layoutInflater.inflate(R.layout.rowbeers, parent,false);
         TextView beer = (TextView) rowView.findViewById(R.id.textViewbeers);
+        TextView empty = (TextView) rowView.findViewById(R.id.empty);
         ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.progbar);
         Response.BeersBean item = (Response.BeersBean) getItem(position);
         beer.setText(item.getPiwo());
         progressBar.setProgress(Integer.parseInt(item.getProgress()));
+        if(Integer.parseInt(item.getProgress())==0)
+        {
+            empty.setVisibility(View.VISIBLE);
+        }
         return rowView;
     }
 }

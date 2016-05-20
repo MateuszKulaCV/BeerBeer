@@ -1,6 +1,7 @@
 package application.beerbeer;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class CustomAdapter extends BaseAdapter{
             Response.PubsBean item = (Response.PubsBean) getItem(position);
             pub.setText(item.getPub());
             Picasso.with(context).load(item.getLink()).into(pubImage);
+            pubImage.setBackgroundColor(Color.TRANSPARENT);
             return rowView;
 
     }
