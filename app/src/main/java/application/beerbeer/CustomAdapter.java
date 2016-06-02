@@ -45,6 +45,14 @@ public class CustomAdapter extends BaseAdapter{
         return 0;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * getting data from MainActivity by intents
+     * @return row which contains pub name, image of pub(setting by Picasso),
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

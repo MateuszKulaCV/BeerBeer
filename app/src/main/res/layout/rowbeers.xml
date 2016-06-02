@@ -14,33 +14,11 @@
         android:maxHeight="50dp"
         android:textSize="25sp"
         android:id="@+id/textViewbeers" />
-    <ProgressBar
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="150dp"
-        android:maxHeight="90dp"
-        android:id="@+id/progbar"
-        android:layout_height="50dp"
-        android:minHeight="50dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentRight="true"
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/progbar"
         android:layout_centerVertical="true"
-        android:progress="40"
-        android:progressDrawable="@drawable/progressbar"
-        android:progressBackgroundTint="#FFFFFF"
-        android:progressTint="#FF8BC34A"
-        />
-    <TextView
-        android:visibility="invisible"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:background="#00000000"
-        android:text="Pusty Keg :("
-        android:textSize="25sp"
-        android:id="@+id/empty"
-        android:layout_alignLeft="@+id/progbar"
-        android:layout_alignTop="@+id/progbar"
-        android:layout_alignRight="@+id/progbar"
-        android:layout_alignBottom="@+id/progbar"
-    />
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

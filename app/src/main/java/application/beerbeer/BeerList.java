@@ -3,6 +3,7 @@ package application.beerbeer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,9 +51,26 @@ public class BeerList extends AppCompatActivity{
               }
 
             }
+
+
+                getSupportActionBar().setTitle(positionResponse);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
       //  Picasso.with(getApplicationContext()).load(objresp.getBeers())
         adapter= new CustomAdapterBeers(BeerList.this, listadap);
         listView.setAdapter(adapter);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 }
