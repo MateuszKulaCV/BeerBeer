@@ -1,16 +1,17 @@
-package application.beerbeer;
+package application.beerbeer.BeerListPackage;
 
 import android.content.Context;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
+
+import application.beerbeer.R;
+import application.beerbeer.ResponsePack.Response;
 
 /**
  * Created by KOMPUTOR on 2016-05-17.
@@ -56,15 +57,19 @@ public class CustomAdapterBeers extends BaseAdapter {
         bottle5 = (ImageView) rowView.findViewById(R.id.progimageView5);
 
 
-       // ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.progbar);
+
         Response.BeersBean item = (Response.BeersBean) getItem(position);
         setProgressbar(Integer.parseInt(item.getProgress()));
         beer.setText(item.getPiwo());
-       // progressBar.setProgress(Integer.parseInt(item.getProgress()));
+
 
         return rowView;
     }
 
+    /**
+     * setting bottles visibility depending on progress
+     * @param progress
+     */
     void setProgressbar(int progress)
     {
                      if(progress>=0 && progress<=20){

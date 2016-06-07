@@ -1,0 +1,60 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="300dp"
+    android:minWidth="200dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:src="@drawable/pub"
+        android:id="@+id/fragImage"
+        android:layout_above="@+id/beernamefrag"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:textSize="30sp"
+        android:id="@+id/beernamefrag"
+        android:text="Pacific" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_alignBottom="@+id/beernamefrag"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0,5l - 12zl"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"
+            android:id="@+id/halfpricefrag"
+           />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0,3l - 9zl"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"
+            android:id="@+id/threepricefrag"
+          />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

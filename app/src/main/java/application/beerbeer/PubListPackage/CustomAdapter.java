@@ -1,19 +1,21 @@
-package application.beerbeer;
+package application.beerbeer.PubListPackage;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import application.beerbeer.R;
+import application.beerbeer.ResponsePack.Response;
 
 /**
  * Created by KOMPUTOR on 2016-05-16.
@@ -63,7 +65,14 @@ public class CustomAdapter extends BaseAdapter{
             ImageView pubImage = (ImageView) rowView.findViewById(R.id.pubImage);
             Response.PubsBean item = (Response.PubsBean) getItem(position);
             pub.setText(item.getPub());
-            Picasso.with(context).load(item.getLink()).into(pubImage);
+
+            try{
+                Picasso.with(context).load(item.getLink()).into(pubImage);
+            } catch (IllegalArgumentException e)
+            {
+                Log.d("blad","blad");
+            }
+
             pubImage.setBackgroundColor(Color.TRANSPARENT);
             return rowView;
 
