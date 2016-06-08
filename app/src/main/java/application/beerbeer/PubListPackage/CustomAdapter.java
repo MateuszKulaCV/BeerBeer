@@ -52,7 +52,7 @@ public class CustomAdapter extends BaseAdapter{
      * @param position
      * @param convertView
      * @param parent
-     * getting data from MainActivity by intents
+     * getting data from PubListActivity by intents
      * @return row which contains pub name, image of pub(setting by Picasso),
      */
     @Override
@@ -73,7 +73,7 @@ public class CustomAdapter extends BaseAdapter{
                 Log.d("blad","blad");
             }
 
-            pubImage.setBackgroundColor(Color.TRANSPARENT);
+
             return rowView;
 
     }

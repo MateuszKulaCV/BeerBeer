@@ -20,7 +20,7 @@ import application.beerbeer.R;
 import application.beerbeer.ResponsePack.Response;
 
 
-public class BeerList extends AppCompatActivity{
+public class BeerListActivity extends AppCompatActivity{
 
         Gson gson;
         String strResponse,positionResponse;
@@ -37,17 +37,22 @@ public class BeerList extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beerlist);
-
-
-        getSupportActionBar().setTitle(positionResponse);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    /**
+    * getting intent from PubListActivity
+    */
 
         strResponse = (String) getIntent().getExtras().getString("objres");
         positionResponse = (String) getIntent().getExtras().getString("beerPosition");
 
-        listView = (ListView) findViewById(R.id.beerlist);
+        /**
+         * actionbar homebutton
+         */
+        getSupportActionBar().setTitle(positionResponse);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
+        listView = (ListView) findViewById(R.id.beerlist);
         gson = new Gson();
         objresp = gson.fromJson(strResponse, Response.class);
 
@@ -65,7 +70,7 @@ public class BeerList extends AppCompatActivity{
 
 
 
-        adapter= new CustomAdapterBeers(BeerList.this, listadap);
+        adapter= new CustomAdapterBeers(BeerListActivity.this, listadap);
         listView.setAdapter(adapter);
 
 
