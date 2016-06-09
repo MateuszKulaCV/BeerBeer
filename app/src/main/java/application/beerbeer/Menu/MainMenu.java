@@ -13,6 +13,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import application.beerbeer.BeerListPackage.BeerListActivity;
 import application.beerbeer.PubListPackage.PubListActivity;
 import application.beerbeer.R;
 import application.beerbeer.ResponsePack.GetResponseAPI;
@@ -33,7 +34,10 @@ public class MainMenu extends AppCompatActivity {
     final public String URL = "dbcon.php";
     Gson gson;
     Response objResponse;
-   public final String fav = "Marynka/Kontynuacja";
+    public final String fav = "Kontynuacja/NOWE/Marynka";
+    ArrayList<String> favpubs;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +61,11 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     String strResponse = new String(responseBody);
-                setExpandableList(strResponse);
+
 
                 gson = new Gson();
                 objResponse = gson.fromJson(strResponse, Response.class);
-
+                setExpandableList(objResponse);
 
 
             }
@@ -73,18 +77,21 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    void PrepareList()
+    void PrepareList(String favpub)
     {
-
+        String arr[] = null;
+        arr = favpub.split("/");
 
         head = new ArrayList<>();
         child = new HashMap<>();
         head.add("Fav Pubs");
         head.add("All Pubs");
         head.add("Beer in Pubs");
-        ArrayList<String> favpubs = new ArrayList<>();
-        favpubs.add("Marynka");
-        favpubs.add("Kontynuacja");
+        favpubs = new ArrayList<>();
+        for(String s: arr)
+        {
+            favpubs.add(s);
+        }
         ArrayList<String> test = new ArrayList<>();
         child.put(head.get(0), favpubs);
         child.put(head.get(1), test);
@@ -92,29 +99,48 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
-    void setExpandableList(final String strResponse)
+    void setExpandableList(final Response objResponse)
     {
-        PrepareList();
 
-        adapter = new ExpandableListAdapter(this, head,child);
+        PrepareList(fav);
+
+        adapter = new ExpandableListAdapter(this, head,child, objResponse);
         mainmenu.setAdapter(adapter);
+
+
+
+
+
 
         mainmenu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 if (groupPosition == 1) { //All Pubs
                     Intent intent = new Intent(getApplicationContext(), PubListActivity.class);
-                    intent.putExtra("strResponse",strResponse);
+                    intent.putExtra("strResponse", gson.toJson(objResponse));
                     startActivity(intent);
 
 
-                }else if(groupPosition == 2) //Beer in Pubs
+                } else if (groupPosition == 2) //Beer in Pubs
                 {
                     Intent intent = new Intent(getApplicationContext(), SearchBeerActivity.class);
-                    intent.putExtra("strResponse",strResponse);
+                    intent.putExtra("strResponse", gson.toJson(objResponse));
                     startActivity(intent);
 
                 }
+
+                return false;
+            }
+        });
+
+        mainmenu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Intent intent = new Intent(getApplicationContext(), BeerListActivity.class);
+                intent.putExtra("strResponse", gson.toJson(objResponse));
+                intent.putExtra("pubposition", favpubs.get(childPosition));
+
+                startActivity(intent);
 
                 return false;
             }

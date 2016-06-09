@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="100dp">
+    android:layout_height="70dp">
 
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/childpubImage"
+        android:layout_centerVertical="true"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
+        android:scaleType="fitStart"
+
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:paddingLeft="20dp"
-        android:textSize="20dp"
-        android:id="@+id/childname" />
+        android:paddingLeft="0dp"
+        android:textSize="30sp"
+
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/childpubImage"
+        android:id="@+id/childname"
+        android:layout_gravity="center_vertical" />
 
 </LinearLayout>
