@@ -56,6 +56,7 @@ public class SearchBeerActivity extends AppCompatActivity{
         gson = new Gson();
         objResponse = gson.fromJson(strResponse, Response.class);
         adapter = new CustomAdapter(SearchBeerActivity.this, objResponse.getPubs());
+        adapter.setObjResponse(objResponse);
         listView.setAdapter(adapter);
         searchviewMethod();
 

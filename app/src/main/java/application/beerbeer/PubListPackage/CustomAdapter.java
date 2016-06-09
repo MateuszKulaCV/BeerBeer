@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import application.beerbeer.R;
 import application.beerbeer.ResponsePack.Response;
@@ -29,6 +31,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
     private LayoutInflater layoutInflater;
     private List<Response.PubsBean> pubmem;
     private Filter filter;
+    private Response objResponse;
     public CustomAdapter(Context context, List<Response.PubsBean> pubs) {
         this.context = context;
         this.pubs = pubs;
@@ -36,6 +39,10 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
     }
 
 
+    public void setObjResponse(Response objResponse)
+    {
+        this.objResponse = objResponse;
+    }
 
     public void setPubs( List<Response.PubsBean> pubs)
     {
@@ -110,24 +117,47 @@ private class CustomFilter extends Filter
     protected FilterResults performFiltering(CharSequence constraint) {
         FilterResults filterResults = new FilterResults();
         List<Response.PubsBean> pubslist= pubs;
+        List<Response.BeersBean> beerlist= objResponse.getBeers();
+        beerlist = objResponse.getBeers();
         if(constraint == null || constraint.length() == 0)
         {
             filterResults.values = pubslist;
             filterResults.count = pubslist.size();
-        }else
-        {
+        }else {
             ArrayList<Response.PubsBean> filteredPubs = new ArrayList<Response.PubsBean>();
-            for(Response.PubsBean j: pubslist)
+            for (Response.BeersBean b : beerlist)
+            {
+                Log.d("beerlist ",b.getPiwo().toLowerCase()+" "+ constraint.toString().toLowerCase());
+                if (b.getPiwo().toLowerCase().contains(constraint.toString().toLowerCase()))
+                {
+                    for (Response.PubsBean p : pubslist) {
+
+                        if (p.getPub().toLowerCase().equals(b.getPub().toLowerCase())) {
+                            //Log.d("filteredpubs",p.getPub().toLowerCase());
+                            filteredPubs.add(p);
+                        }
+                    }
+                }
+            }
+            HashSet<Response.PubsBean> temp = new HashSet<Response.PubsBean>();
+            temp.addAll(filteredPubs);
+            filteredPubs.clear();
+            filteredPubs.addAll(temp);
+            filterResults.values = filteredPubs;
+            filterResults.count = filteredPubs.size();
+
+        /*    for(Response.PubsBean j: pubslist)
             {
                 if(j.getPub().toLowerCase().contains(constraint.toString().toLowerCase()))
                 {
+
                     filteredPubs.add(j);
                 }
                 filterResults.values = filteredPubs;
                 filterResults.count = filteredPubs.size();
             }
+        */
         }
-
         return filterResults;
     }
 
@@ -139,6 +169,7 @@ private class CustomFilter extends Filter
             notifyDataSetInvalidated();
         }else
         {
+
             pubs = (List<Response.PubsBean>) results.values;
             notifyDataSetChanged();
 
