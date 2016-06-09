@@ -41,8 +41,8 @@ public class BeerListActivity extends AppCompatActivity{
     * getting intent from PubListActivity
     */
 
-        strResponse = (String) getIntent().getExtras().getString("objres");
-        positionResponse = (String) getIntent().getExtras().getString("beerPosition");
+        strResponse = (String) getIntent().getExtras().getString("strResponse");
+        positionResponse = (String) getIntent().getExtras().getString("pubposition");
 
         /**
          * actionbar homebutton

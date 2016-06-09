@@ -15,7 +15,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import application.beerbeer.BeerListPackage.BeerListActivity;
 
 import application.beerbeer.R;
-import application.beerbeer.ResponsePack.GetResponseAPI;
 import application.beerbeer.ResponsePack.Response;
 
 
@@ -24,9 +23,8 @@ public class PubListActivity extends AppCompatActivity {
     ListView listView;
     Response objResponse;
     CustomAdapter adapter;
-    String url = "dbcon.php";
     Gson gson;
-
+    String strResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,32 +48,27 @@ public class PubListActivity extends AppCompatActivity {
      * */
     protected void setView()
     {
+
         getSupportActionBar().setTitle("Pub's List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         listView = (ListView) findViewById(R.id.list);
+        /**
+         * intent response from MainMenu1
+         */
+        strResponse = (String) getIntent().getExtras().getString("strResponse");
+
+        gson = new Gson();
+        objResponse = gson.fromJson(strResponse,Response.class);
+        adapter = new CustomAdapter(PubListActivity.this, objResponse.getPubs());
+        listView.setAdapter(adapter);
 
 
 
-                GetResponseAPI.get(url,null, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int i, cz.msebera.android.httpclient.Header[] headers, byte[] bytes) {
-                        String strResponse = new String(bytes);
-                        gson = new Gson();
-                        objResponse = gson.fromJson(strResponse, Response.class);
-                        adapter = new CustomAdapter(PubListActivity.this, objResponse.getPubs());
-                        listView.setAdapter(adapter);
-
-
-                    }
-
-                    @Override
-                    public void onFailure(int i, cz.msebera.android.httpclient.Header[] headers, byte[] bytes, Throwable throwable) {
-
-                    }
-                });
 
         /**
-         * setting new View depends on which pub was choosen
+         * setting new View depends on which pub was choose
          * sending json string
          * sending position
          */
@@ -83,11 +76,10 @@ public class PubListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Toast.makeText(getApplicationContext(), "yo"+position, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), BeerListActivity.class);
-                intent.putExtra("objres", gson.toJson(objResponse));
-                intent.putExtra("beerPosition", objResponse.getPubs().get(position).getPub());
+                intent.putExtra("strResponse", strResponse);
+                intent.putExtra("pubposition", objResponse.getPubs().get(position).getPub());
                 startActivity(intent);
 
 
