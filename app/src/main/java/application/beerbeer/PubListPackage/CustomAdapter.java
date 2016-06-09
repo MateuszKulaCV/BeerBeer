@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import application.beerbeer.R;
@@ -20,18 +23,28 @@ import application.beerbeer.ResponsePack.Response;
 /**
  * Created by KOMPUTOR on 2016-05-16.
  */
-public class CustomAdapter extends BaseAdapter{
+public class CustomAdapter extends BaseAdapter implements Filterable{
     private List<Response.PubsBean> pubs;
     private Context context;
     private LayoutInflater layoutInflater;
-
+    private List<Response.PubsBean> pubmem;
+    private Filter filter;
     public CustomAdapter(Context context, List<Response.PubsBean> pubs) {
         this.context = context;
         this.pubs = pubs;
+        this.pubmem = pubs;
     }
 
 
 
+    public void setPubs( List<Response.PubsBean> pubs)
+    {
+        this.pubs = pubs;
+    }
+    public  List<Response.PubsBean> getpubmem()
+    {
+        return pubmem;
+    }
     @Override
     public int getCount() {
         return pubs.size();
@@ -58,7 +71,6 @@ public class CustomAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = layoutInflater.inflate(R.layout.rowpubs, parent, false);
             TextView pub = (TextView) rowView.findViewById(R.id.textView);
@@ -77,4 +89,63 @@ public class CustomAdapter extends BaseAdapter{
             return rowView;
 
     }
+
+    @Override
+    public Filter getFilter() {
+            if(filter == null)
+            {
+                filter = new CustomFilter();
+
+            }
+
+        return filter;
+    }
+
+
+
+private class CustomFilter extends Filter
+{
+
+    @Override
+    protected FilterResults performFiltering(CharSequence constraint) {
+        FilterResults filterResults = new FilterResults();
+        List<Response.PubsBean> pubslist= pubs;
+        if(constraint == null || constraint.length() == 0)
+        {
+            filterResults.values = pubslist;
+            filterResults.count = pubslist.size();
+        }else
+        {
+            ArrayList<Response.PubsBean> filteredPubs = new ArrayList<Response.PubsBean>();
+            for(Response.PubsBean j: pubslist)
+            {
+                if(j.getPub().toLowerCase().contains(constraint.toString().toLowerCase()))
+                {
+                    filteredPubs.add(j);
+                }
+                filterResults.values = filteredPubs;
+                filterResults.count = filteredPubs.size();
+            }
+        }
+
+        return filterResults;
+    }
+
+    @Override
+    protected void publishResults(CharSequence constraint, FilterResults results) {
+        if(results.count ==0)
+        {
+
+            notifyDataSetInvalidated();
+        }else
+        {
+            pubs = (List<Response.PubsBean>) results.values;
+            notifyDataSetChanged();
+
+
+        }
+    }
+
+};
+
 }

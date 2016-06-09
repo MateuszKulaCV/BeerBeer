@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -133,6 +135,7 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+
         mainmenu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -143,6 +146,19 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(intent);
 
                 return false;
+            }
+        });
+
+        mainmenu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemType = ExpandableListView.getPackedPositionType(id);
+                if(itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD)
+                {
+                    Toast.makeText(getApplicationContext(), favpubs.get(position-1), Toast.LENGTH_SHORT).show();
+
+                }
+                return true;
             }
         });
     }
