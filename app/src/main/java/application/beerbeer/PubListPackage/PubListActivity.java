@@ -24,6 +24,7 @@ public class PubListActivity extends AppCompatActivity {
     CustomAdapter adapter;
     Gson gson;
     String strResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class PubListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.list);
         /**
-         * intent response from MainMenu1
+         * intent response from MainMenu
          */
         strResponse = (String) getIntent().getExtras().getString("strResponse");
 
@@ -93,7 +94,7 @@ public class PubListActivity extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
+                //dialogfragment
                 Toast.makeText(getApplicationContext(), objResponse.getPubs().get(position).getLink(), Toast.LENGTH_SHORT).show();
 
                 return true;

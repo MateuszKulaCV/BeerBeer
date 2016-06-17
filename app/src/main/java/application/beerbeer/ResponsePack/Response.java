@@ -46,7 +46,8 @@ public class Response {
         private String piwo;
         private String link;
         private String progress;
-
+        private String halfprice;
+        private String threeprice;
         public String getId() {
             return id;
         }
@@ -85,6 +86,22 @@ public class Response {
 
         public void setProgress(String progress) {
             this.progress = progress;
+        }
+
+        public String getHalfprice() {
+            return halfprice;
+        }
+
+        public void setHalfprice(String halfprice) {
+            this.halfprice = halfprice;
+        }
+
+        public String getThreeprice() {
+            return threeprice;
+        }
+
+        public void setThreeprice(String threeprice) {
+            this.threeprice = threeprice;
         }
     }
 

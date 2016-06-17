@@ -33,7 +33,6 @@ public class MainMenu extends AppCompatActivity {
     ExpandableListView mainmenu;
 
 
-    final public String URL = "dbcon.php";
     Gson gson;
     Response objResponse;
     public final String fav = "Kontynuacja/NOWE/Marynka";
@@ -59,7 +58,7 @@ public class MainMenu extends AppCompatActivity {
 
     void SetConn()
     {
-        GetResponseAPI.get(URL, null, new AsyncHttpResponseHandler() {
+        GetResponseAPI.get(GetResponseAPI.DBCON_URL, null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     String strResponse = new String(responseBody);

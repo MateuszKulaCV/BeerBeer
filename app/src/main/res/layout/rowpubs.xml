@@ -4,15 +4,19 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="100dp"
     android:paddingLeft="0dp"
-    android:paddingRight="0dp">
+    android:paddingRight="10dp"
+
+    >
+
 
     <ImageView
         android:layout_width="100dp"
+        android:paddingLeft="10dp"
         android:layout_height="wrap_content"
         android:id="@+id/pubImage"
         android:layout_centerVertical="true"
-        android:maxHeight="200dp"
-        android:maxWidth="200dp"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
         android:scaleType="fitStart"
 
 

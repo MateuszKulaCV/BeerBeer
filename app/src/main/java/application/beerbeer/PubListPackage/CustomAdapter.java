@@ -2,6 +2,7 @@ package application.beerbeer.PubListPackage;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,23 +78,32 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        ViewHolder holder;
+        if(convertView == null)
+        {
+            holder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = layoutInflater.inflate(R.layout.rowpubs, parent, false);
-            TextView pub = (TextView) rowView.findViewById(R.id.textView);
-            ImageView pubImage = (ImageView) rowView.findViewById(R.id.pubImage);
+            convertView = layoutInflater.inflate(R.layout.rowpubs, parent, false);
+            holder.pub = (TextView) convertView.findViewById(R.id.textView);
+            holder.pubImage = (ImageView) convertView.findViewById(R.id.pubImage);
+            convertView.setTag(holder);
+        } else
+        {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
             Response.PubsBean item = (Response.PubsBean) getItem(position);
-            pub.setText(item.getPub());
+            holder.pub.setText(item.getPub());
 
             try{
-                Picasso.with(context).load(item.getLink()).into(pubImage);
+                    Picasso.with(context).load(item.getLink()).into(holder.pubImage);
             } catch (IllegalArgumentException e)
             {
-                Log.d("blad","blad");
+                    Log.d("blad","blad");
             }
 
 
-            return rowView;
+            return convertView;
 
     }
 
@@ -109,7 +119,11 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
     }
 
 
-
+private static class ViewHolder
+{
+    TextView pub;
+    ImageView pubImage;
+}
 private class CustomFilter extends Filter
 {
 
@@ -146,17 +160,6 @@ private class CustomFilter extends Filter
             filterResults.values = filteredPubs;
             filterResults.count = filteredPubs.size();
 
-        /*    for(Response.PubsBean j: pubslist)
-            {
-                if(j.getPub().toLowerCase().contains(constraint.toString().toLowerCase()))
-                {
-
-                    filteredPubs.add(j);
-                }
-                filterResults.values = filteredPubs;
-                filterResults.count = filteredPubs.size();
-            }
-        */
         }
         return filterResults;
     }

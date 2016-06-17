@@ -50,23 +50,42 @@ public class BeerListActivity extends AppCompatActivity{
         getSupportActionBar().setTitle(positionResponse);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         listView = (ListView) findViewById(R.id.beerlist);
+
+
+        SetView();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void SetView()
+    {
         gson = new Gson();
         objresp = gson.fromJson(strResponse, Response.class);
 
         /**
          * adding to listadap beer that equals to positionResponse
          */
-           for(int i=0;i<objresp.getBeers().size();i++)
+        for(int i=0;i<objresp.getBeers().size();i++)
+        {
+            if(positionResponse.equals(objresp.getBeers().get(i).getPub()))
             {
-                if(positionResponse.equals(objresp.getBeers().get(i).getPub()))
-                {
                 listadap.add(objresp.getBeers().get(i));
-              }
-
             }
+
+        }
 
 
 
@@ -80,29 +99,17 @@ public class BeerListActivity extends AppCompatActivity{
          * onclick-> display dialogfragment with imageview, etc.
          *@param BeerName, HalfPrice, ThreePrice, Image
          */
-         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BeerDialogFragment beerDialogFragment = new BeerDialogFragment();
-               beerDialogFragment.setBeerName(listadap.get(position).getPiwo());
-               beerDialogFragment.setHalfPricestr("42");
-               beerDialogFragment.setThreePricestr("22");
-               beerDialogFragment.setImage(listadap.get(position).getLink());
+                beerDialogFragment.setBeerName(listadap.get(position).getPiwo());
+                beerDialogFragment.setHalfPricestr(listadap.get(position).getHalfprice());
+                beerDialogFragment.setThreePricestr(listadap.get(position).getThreeprice());
+                beerDialogFragment.setImage(listadap.get(position).getLink());
                 beerDialogFragment.show(fm, "BeerDialogFragment");
 
-           }
-       });
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+            }
+        });
     }
 }

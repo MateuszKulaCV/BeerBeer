@@ -20,7 +20,7 @@ public class CustomAdapterBeers extends BaseAdapter {
     private List<Response.BeersBean> beers;
     private Context context;
     private LayoutInflater layoutInflater;
-    ImageView bottle1,bottle2,bottle3,bottle4,bottle5;
+
     public CustomAdapterBeers(Context context, List<Response.BeersBean> beers) {
         this.context = context;
         this.beers = beers;
@@ -44,57 +44,76 @@ public class CustomAdapterBeers extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = layoutInflater.inflate(R.layout.rowbeers, parent,false);
-        TextView beer = (TextView) rowView.findViewById(R.id.textViewbeers);
-        /**
-         * setting custom progressbar
-         */
-        bottle1 = (ImageView) rowView.findViewById(R.id.progimageView1);
-        bottle2 = (ImageView) rowView.findViewById(R.id.progimageView2);
-        bottle3 = (ImageView) rowView.findViewById(R.id.progimageView3);
-        bottle4 = (ImageView) rowView.findViewById(R.id.progimageView4);
-        bottle5 = (ImageView) rowView.findViewById(R.id.progimageView5);
+        ViewHolder holder;
+        if(convertView == null)
+        {
+            holder = new ViewHolder();
+            layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.rowbeers, parent,false);
+            holder.beer = (TextView) convertView.findViewById(R.id.textViewbeers);
+            /**
+             * setting custom progressbar
+             */
+            holder.bottle1 = (ImageView) convertView.findViewById(R.id.progimageView1);
+            holder.bottle2 = (ImageView) convertView.findViewById(R.id.progimageView2);
+            holder.bottle3 = (ImageView) convertView.findViewById(R.id.progimageView3);
+            holder.bottle4 = (ImageView) convertView.findViewById(R.id.progimageView4);
+            holder.bottle5 = (ImageView) convertView.findViewById(R.id.progimageView5);
+
+            convertView.setTag(holder);
+        }else
+        {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
 
 
 
         Response.BeersBean item = (Response.BeersBean) getItem(position);
-        setProgressbar(Integer.parseInt(item.getProgress()));
-        beer.setText(item.getPiwo());
+        setProgressbar(Integer.parseInt(item.getProgress()),holder);
+        holder.beer.setText(item.getPiwo());
 
 
-        return rowView;
+        return convertView;
     }
 
     /**
      * setting bottles visibility depending on progress
      * @param progress
+     * @param holder
      */
-    void setProgressbar(int progress)
+    void setProgressbar(int progress, ViewHolder holder)
     {
                      if(progress>=0 && progress<=20){
-            bottle1.setImageResource(R.drawable.progresson);
+            holder.bottle1.setImageResource(R.drawable.progresson);
 
         }else        if(progress>=21 && progress<=40){
-            bottle1.setImageResource(R.drawable.progresson);
-            bottle2.setImageResource(R.drawable.progresson);
+            holder.bottle1.setImageResource(R.drawable.progresson);
+            holder.bottle2.setImageResource(R.drawable.progresson);
         }else        if(progress>=41 && progress<=60){
-            bottle1.setImageResource(R.drawable.progresson);
-            bottle2.setImageResource(R.drawable.progresson);
-            bottle3.setImageResource(R.drawable.progresson);
+            holder.bottle1.setImageResource(R.drawable.progresson);
+            holder.bottle2.setImageResource(R.drawable.progresson);
+            holder.bottle3.setImageResource(R.drawable.progresson);
         }else        if(progress>=61 && progress<=80){
-            bottle1.setImageResource(R.drawable.progresson);
-            bottle2.setImageResource(R.drawable.progresson);
-            bottle3.setImageResource(R.drawable.progresson);
-            bottle4.setImageResource(R.drawable.progresson);
+            holder.bottle1.setImageResource(R.drawable.progresson);
+            holder.bottle2.setImageResource(R.drawable.progresson);
+            holder.bottle3.setImageResource(R.drawable.progresson);
+            holder.bottle4.setImageResource(R.drawable.progresson);
         }else
         {
-            bottle1.setImageResource(R.drawable.progresson);
-            bottle2.setImageResource(R.drawable.progresson);
-            bottle3.setImageResource(R.drawable.progresson);
-            bottle4.setImageResource(R.drawable.progresson);
-            bottle5.setImageResource(R.drawable.progresson);
+            holder.bottle1.setImageResource(R.drawable.progresson);
+            holder.bottle2.setImageResource(R.drawable.progresson);
+            holder.bottle3.setImageResource(R.drawable.progresson);
+            holder.bottle4.setImageResource(R.drawable.progresson);
+            holder.bottle5.setImageResource(R.drawable.progresson);
         }
 
     }
+
+    private static class ViewHolder
+    {
+        ImageView bottle1,bottle2,bottle3,bottle4,bottle5;
+        TextView beer;
+    }
 }
+

@@ -11,7 +11,7 @@ import com.loopj.android.http.RequestParams;
 public class GetResponseAPI {
 
         private static final String BASE_URL = "http://beerparse.esy.es/";
-
+        public static final String DBCON_URL = "dbcon.php";
         private static AsyncHttpClient client = new AsyncHttpClient();
 
         public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

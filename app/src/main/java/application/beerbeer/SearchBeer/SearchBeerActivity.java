@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -19,6 +21,7 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import application.beerbeer.BeerListPackage.BeerListActivity;
 import application.beerbeer.PubListPackage.CustomAdapter;
 import application.beerbeer.R;
 
@@ -59,6 +62,16 @@ public class SearchBeerActivity extends AppCompatActivity{
         adapter.setObjResponse(objResponse);
         listView.setAdapter(adapter);
         searchviewMethod();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), BeerListActivity.class);
+                intent.putExtra("strResponse", strResponse);
+                Response.PubsBean item = (Response.PubsBean) listView.getItemAtPosition(position);
+                intent.putExtra("pubposition",item.getPub());
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -66,22 +79,7 @@ public class SearchBeerActivity extends AppCompatActivity{
 
     void searchviewMethod()
     {
-      /*  searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                adapter.getFilter().filter(s);
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        }); */
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
