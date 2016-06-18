@@ -4,49 +4,29 @@ package application.beerbeer.Menu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ExpandableListView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import application.beerbeer.BeerListPackage.BeerListActivity;
-import application.beerbeer.PubListPackage.PubListActivity;
 import application.beerbeer.R;
 import application.beerbeer.ResponsePack.GetResponseAPI;
-import application.beerbeer.ResponsePack.Response;
-import application.beerbeer.SearchBeer.SearchBeerActivity;
 import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by methyll.
  */
 public class MainMenu extends AppCompatActivity {
-    HashMap<String,ArrayList<String>> child;
-    ArrayList<String> head;
-    ExpandableListAdapter adapter;
-    ExpandableListView mainmenu;
-
-
-    Gson gson;
-    Response objResponse;
     public final String fav = "Kontynuacja/NOWE/Marynka";
-    ArrayList<String> favpubs;
-
+    ImageView imageView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
+        imageView = (ImageView) findViewById(R.id.imageView);
         SetConn();
-
-        mainmenu = (ExpandableListView) findViewById(R.id.expandableMenu);
 
 
 
@@ -63,11 +43,9 @@ public class MainMenu extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     String strResponse = new String(responseBody);
 
-
-                gson = new Gson();
-                objResponse = gson.fromJson(strResponse, Response.class);
-                setExpandableList(objResponse);
-
+                Intent intent = new Intent(getApplicationContext(),FirstActivity.class);
+                intent.putExtra("strResponse", strResponse);
+                startActivity(intent);
 
             }
 
@@ -78,90 +56,11 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
-    void PrepareList(String favpub)
-    {
-        String arr[] = null;
-        arr = favpub.split("/");
-
-        head = new ArrayList<>();
-        child = new HashMap<>();
-        head.add("Fav Pubs");
-        head.add("All Pubs");
-        head.add("Beer in Pubs");
-        favpubs = new ArrayList<>();
-        for(String s: arr)
-        {
-            favpubs.add(s);
-        }
-        ArrayList<String> test = new ArrayList<>();
-        child.put(head.get(0), favpubs);
-        child.put(head.get(1), test);
-        child.put(head.get(2), test);
-
-    }
-
-    void setExpandableList(final Response objResponse)
+ /*   void PrepareList(String favpub)
     {
 
-        PrepareList(fav);
 
-        adapter = new ExpandableListAdapter(this, head,child, objResponse);
-        mainmenu.setAdapter(adapter);
-
-
-
-
-
-
-        mainmenu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (groupPosition == 1) { //All Pubs
-                    Intent intent = new Intent(getApplicationContext(), PubListActivity.class);
-                    intent.putExtra("strResponse", gson.toJson(objResponse));
-                    startActivity(intent);
-
-
-                } else if (groupPosition == 2) //Beer in Pubs
-                {
-                    Intent intent = new Intent(getApplicationContext(), SearchBeerActivity.class);
-                    intent.putExtra("strResponse", gson.toJson(objResponse));
-                    startActivity(intent);
-
-                }
-
-                return false;
-            }
-        });
-
-
-        mainmenu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Intent intent = new Intent(getApplicationContext(), BeerListActivity.class);
-                intent.putExtra("strResponse", gson.toJson(objResponse));
-                intent.putExtra("pubposition", favpubs.get(childPosition));
-
-                startActivity(intent);
-
-                return false;
-            }
-        });
-
-        mainmenu.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemType = ExpandableListView.getPackedPositionType(id);
-                if(itemType == ExpandableListView.PACKED_POSITION_TYPE_CHILD)
-                {
-                    Toast.makeText(getApplicationContext(), favpubs.get(position-1), Toast.LENGTH_SHORT).show();
-
-                }
-                return true;
-            }
-        });
     }
-
-
+*/
 
 }

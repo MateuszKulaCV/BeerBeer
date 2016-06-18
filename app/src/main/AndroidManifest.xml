@@ -17,11 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeerListPackage.BeerListActivity"></activity>
-        <activity android:name=".PubListPackage.PubListActivity"></activity>
-        <activity android:name=".SearchBeer.SearchBeerActivity">
-
-        </activity>
+        <activity android:name=".Menu.FirstActivity"></activity>
 
     </application>
 
