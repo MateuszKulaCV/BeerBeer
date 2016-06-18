@@ -2,11 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item android:id="@+id/Favourite"
-            android:title="Favourite" />
+            android:title="Favourite"
+            android:icon="@android:drawable/btn_star_big_off"/>
         <item android:id="@+id/All_pubs"
-            android:title="All Pubs" />
+            android:title="All Pubs"
+            android:icon="@android:drawable/ic_dialog_info"/>
         <item android:id="@+id/Search"
-            android:title="Search" />
+            android:title="Search"
+            android:icon="@android:drawable/ic_menu_search"/>
 
+        <item android:title="Sub items">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+
+                        android:title="Sub item 1"
+                        android:icon="@android:drawable/arrow_up_float"/>
+                    <item
+
+                        android:title="Sub item 2"
+                        android:icon="@android:drawable/arrow_down_float"/>
+                </group>
+            </menu>
+        </item>
     </group>
 </menu>

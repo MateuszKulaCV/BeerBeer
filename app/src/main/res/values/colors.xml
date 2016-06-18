@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8bc34a</color>
-    <color name="colorPrimaryDark">#5d9538</color>
+    <color name="colorPrimary">#e98e3f</color>
+    <color name="colorPrimaryDark">#af5100</color>
     <color name="colorAccent">#FF4081</color>
     <color name="nuwka">#1A3232</color>
     <color name="background_material_light">#ffffff</color>

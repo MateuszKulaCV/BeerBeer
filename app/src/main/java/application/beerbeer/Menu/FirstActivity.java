@@ -1,6 +1,7 @@
 package application.beerbeer.Menu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -58,7 +59,7 @@ public class FirstActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Title);
-
+        toolbar.setTitleTextColor(Color.WHITE);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);

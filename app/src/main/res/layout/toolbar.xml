@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
+    android:background="#f47100"
     android:fitsSystemWindows="true"
-    android:minHeight="100dp"
+    android:minHeight="80dp"
     android:title="@string/app_name"
-    app:navigationIcon="@android:drawable/sym_def_app_icon">
+    android:titleTextColor="#FFFFFF"
+    app:navigationIcon="@android:drawable/ic_menu_sort_by_size">
 
 
 </android.support.v7.widget.Toolbar>
