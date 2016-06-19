@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 
@@ -24,7 +25,7 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainmenu);
+        setContentView(R.layout.fragment_mainmenu);
         imageView = (ImageView) findViewById(R.id.imageView);
         SetConn();
 
@@ -43,7 +44,7 @@ public class MainMenu extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     String strResponse = new String(responseBody);
 
-                Intent intent = new Intent(getApplicationContext(),FirstActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 intent.putExtra("strResponse", strResponse);
                 startActivity(intent);
 
@@ -56,11 +57,8 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
- /*   void PrepareList(String favpub)
-    {
+ }
 
-
-    }
-*/
-
-}
+/*
+*
+* */

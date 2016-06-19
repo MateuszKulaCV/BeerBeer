@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context=".MainActivity"
     android:paddingStart="0dp"
+    android:background="@drawable/main"
     >
 
 
@@ -12,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/searchView"
         android:iconifiedByDefault="false"
-
+        android:background="@android:color/transparent"
         />
 
     <ListView
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/listView"
         android:dividerHeight="0dp"
-
+        android:background="@android:color/transparent"
         android:scrollbars="none"
 
         android:layout_below="@+id/searchView"

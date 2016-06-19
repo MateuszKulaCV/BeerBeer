@@ -1,8 +1,6 @@
 package application.beerbeer.PubListPackage;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import application.beerbeer.R;
 import application.beerbeer.ResponsePack.Response;
@@ -83,7 +80,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
         {
             holder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.rowpubs, parent, false);
+            convertView = layoutInflater.inflate(R.layout.single_pub_row, parent, false);
             holder.pub = (TextView) convertView.findViewById(R.id.textView);
             holder.pubImage = (ImageView) convertView.findViewById(R.id.pubImage);
             convertView.setTag(holder);
@@ -93,7 +90,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable{
         }
 
             Response.PubsBean item = (Response.PubsBean) getItem(position);
-            holder.pub.setText(item.getPub());
+            holder.pub.setText(item.getPub().toUpperCase());
 
             try{
                     Picasso.with(context).load(item.getLink()).into(holder.pubImage);

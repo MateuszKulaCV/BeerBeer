@@ -10,7 +10,7 @@ android:layout_height="80dp">
     android:layout_marginRight="6dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    android:background="@drawable/broder">
+    android:background="@drawable/card_style">
 
     <ImageView
         android:layout_width="100dp"
@@ -30,7 +30,8 @@ android:layout_height="80dp">
         android:layout_height="wrap_content"
         android:text="New Text"
         android:paddingLeft="0dp"
-        android:textSize="30sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
         android:textColor="@color/colorPrimaryDark"
         android:layout_centerVertical="true"
 

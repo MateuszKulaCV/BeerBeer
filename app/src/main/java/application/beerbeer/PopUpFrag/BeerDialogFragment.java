@@ -33,7 +33,7 @@ public class BeerDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.dialog_layout,container,false );
+        View rootView = inflater.inflate(R.layout.dialogfragment_beerinfo,container,false );
         getDialog().setTitle("");
         halfPrice = (TextView) rootView.findViewById(R.id.halfpricefrag);
         threePrice = (TextView) rootView.findViewById(R.id.threepricefrag);

@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 import application.beerbeer.BeerListPackage.BeerListFragment;
@@ -55,7 +54,7 @@ public class FirstActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.firstlayout);
+        setContentView(R.layout.activity_firsrlayout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Title);
@@ -126,7 +125,7 @@ public class FirstActivity extends AppCompatActivity{
             case R.id.Favourite:
                 fragment = new PubListFragment();
                 data.putString("val",strResponse);
-                data.putString("fav", "Kontynuacja/Marynka");
+                data.putString("fav", getIntent().getExtras().getString("userFav"));
                 fragment.setArguments(data);
                 Title = "Favourite";
                 break;
@@ -135,6 +134,10 @@ public class FirstActivity extends AppCompatActivity{
                 data.putString("strResponse", strResponse);
                 fragment.setArguments(data);
                 Title = "Search";
+                break;
+            case R.id.Logout:
+                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(intent);
                 break;
             default:
                 fragment = new PubListFragment();

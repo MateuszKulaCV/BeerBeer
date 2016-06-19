@@ -49,7 +49,7 @@ public class CustomAdapterBeers extends BaseAdapter {
         {
             holder = new ViewHolder();
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.rowbeers, parent,false);
+            convertView = layoutInflater.inflate(R.layout.single_beer_row, parent,false);
             holder.beer = (TextView) convertView.findViewById(R.id.textViewbeers);
             /**
              * setting custom progressbar
